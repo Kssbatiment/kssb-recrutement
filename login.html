@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Connexion à l'administration KSSB">
+  <title>Connexion Administration | KSSB</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #0756a6;
+      --blue-dark: #063b73;
+      --blue-light: #eaf4ff;
+      --white: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --border: #dce3ec;
+      --background: #f4f7fb;
+      --red: #c62828;
+      --red-bg: #fff0f0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(6, 59, 115, 0.96),
+          rgba(8, 115, 209, 0.92)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      color: var(--text);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 22px;
+      padding: 38px 34px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22);
+    }
+
+    .logo-area {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-area img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .logo-area h1 {
+      color: var(--blue-dark);
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .logo-area p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 13px;
+      border-radius: 30px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .field {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #344054;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(7, 86, 166, 0.10);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 70px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: var(--blue);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .login-btn {
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .login-btn:hover {
+      background: var(--blue-dark);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 17px;
+      padding: 13px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--red);
+      background: var(--red-bg);
+      border: 1px solid #ffcaca;
+    }
+
+    .message.info {
+      display: block;
+      color: var(--blue-dark);
+      background: var(--blue-light);
+      border: 1px solid #cfe5fb;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .back a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .back a:hover {
+      color: var(--blue);
+    }
+
+    .security {
+      text-align: center;
+      margin-top: 22px;
+      color: #98a2b3;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 15px;
+      }
+
+      .login-card {
+        padding: 30px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="login-card">
+
+      <div class="logo-area">
+        <img
+          src="images/logo-kssb.jpeg"
+          alt="Logo KSSB"
+        >
+
+        <h1>KSSB</h1>
+
+        <p>
+          Wa Keur Serigne Saliou Bâtiment
+        </p>
+
+        <span class="admin-badge">
+          ESPACE ADMINISTRATION
+        </span>
+      </div>
+
+      <form id="loginForm">
+
+        <div class="field">
+          <label for="email">
+            Adresse e-mail
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            autocomplete="email"
+            placeholder="Votre adresse e-mail"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">
+            Mot de passe
+          </label>
+
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="password"
+              autocomplete="current-password"
+              placeholder="Votre mot de passe"
+              required
+            >
+
+            <button
+              type="button"
+              class="show-password"
+              id="showPassword"
+            >
+              Afficher
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="login-btn"
+          id="loginButton"
+        >
+          Se connecter
+        </button>
+
+        <div
+          id="message"
+          class="message"
+        ></div>
+
+      </form>
+
+      <div class="back">
+        <a href="index.html">
+          ← Retour au site KSSB
+        </a>
+      </div>
+
+      <div class="security">
+        Accès réservé à l'administration KSSB.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL =
+      "https://qzfddozpccnpnxfxwcfz.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_rkKNQ9_GUKCjIdwYg57p0Q_tLI1Njsk";
+
+    const ADMIN_UID =
+      "6393a1a9-85f6-4ad5-ab43-5e370fb59ca1";
+
+    const supabaseClient = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const message =
+      document.getElementById("message");
+
+    const showPassword =
+      document.getElementById("showPassword");
+
+
+    showPassword.addEventListener(
+      "click",
+      function () {
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          showPassword.textContent = "Masquer";
+        } else {
+          passwordInput.type = "password";
+          showPassword.textContent = "Afficher";
+        }
+
+      }
+    );
+
+
+    function afficherErreur(texte) {
+      message.className = "message error";
+      message.textContent = texte;
+    }
+
+
+    function afficherInfo(texte) {
+      message.className = "message info";
+      message.textContent = texte;
+    }
+
+
+    async function verifierSessionExistante() {
+
+      try {
+
+        const {
+          data: { session }
+        } = await supabaseClient.auth.getSession();
+
+        if (
+          session &&
+          session.user &&
+          session.user.id === ADMIN_UID
+        ) {
+          window.location.href = "admin.html";
+        }
+
+      } catch (error) {
+        console.error(error);
+      }
+
+    }
+
+
+    loginForm.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+        message.className = "message";
+        message.textContent = "";
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+        if (!email || !password) {
+          afficherErreur(
+            "Veuillez saisir votre e-mail et votre mot de passe."
+          );
+          return;
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent =
+          "Connexion en cours...";
+
+        afficherInfo(
+          "Vérification de vos informations..."
+        );
+
+        try {
+
+          const {
+            data,
+            error
+          } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          if (
+            !data.user ||
+            data.user.id !== ADMIN_UID
+          ) {
+
+            await supabaseClient.auth.signOut();
+
+            afficherErreur(
+              "Ce compte n'est pas autorisé à accéder à l'administration KSSB."
+            );
+
+            return;
+          }
+
+
+          message.className = "message info";
+          message.textContent =
+            "Connexion réussie. Ouverture du tableau de bord...";
+
+
+          window.location.href =
+            "admin.html";
+
+
+        } catch (error) {
+
+          console.error(
+            "Erreur de connexion :",
+            error
+          );
+
+          afficherErreur(
+            "Adresse e-mail ou mot de passe incorrect."
+          );
+
+        } finally {
+
+          loginButton.disabled = false;
+          loginButton.textContent =
+            "Se connecter";
+
+        }
+
+      }
+    );
+
+
+    verifierSessionExistante();
+  </script>
+
+</body>
+</html>

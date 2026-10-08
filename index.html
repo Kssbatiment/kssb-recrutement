@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KSSB Recrutement</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f5f8fc;
+      color: #172033;
+    }
+
+    /* =========================
+       EN-TÊTE
+    ========================== */
+
+    header {
+      background: white;
+      padding: 10px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 120px;
+      height: 75px;
+      object-fit: contain;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #12315f;
+      font-weight: bold;
+      padding: 11px 16px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #eef5ff;
+      color: #0646a5;
+    }
+
+    .admin-button {
+      background: #0646a5;
+      color: white !important;
+    }
+
+    .admin-button:hover {
+      background: #033b8f;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: 570px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(3, 43, 105, 0.98),
+          rgba(0, 102, 204, 0.94)
+        );
+
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 9px 18px;
+      border-radius: 30px;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 19px;
+      line-height: 1.7;
+      opacity: 0.95;
+    }
+
+    .hero-buttons {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      text-decoration: none;
+      padding: 16px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #0646a5;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* =========================
+       PRÉSENTATION
+    ========================== */
+
+    .section {
+      max-width: 1150px;
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title span {
+      color: #0866c6;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-title h2 {
+      font-size: 34px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      color: #102544;
+    }
+
+    .section-title p {
+      color: #667085;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       CARTES
+    ========================== */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 8px 30px rgba(15, 45, 80, 0.08);
+      border: 1px solid #edf1f7;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 65px;
+      height: 65px;
+      border-radius: 15px;
+      background: #eef5ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      color: #0646a5;
+      margin-bottom: 12px;
+      font-size: 23px;
+    }
+
+    .card p {
+      color: #667085;
+      line-height: 1.7;
+    }
+
+    .jobs {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .job {
+      background: #f3f6fa;
+      color: #344054;
+      padding: 7px 11px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* =========================
+       COMMENT ÇA MARCHE
+    ========================== */
+
+    .how {
+      background: #eef5ff;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .step {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      margin: auto;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      background: #0646a5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+      color: #102544;
+    }
+
+    .step p {
+      color: #667085;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       APPEL À L'ACTION
+    ========================== */
+
+    .cta {
+      margin: 30px auto 70px;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #063b8c, #0875d1);
+      color: white;
+      padding: 55px 25px;
+      border-radius: 22px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background: #061c3d;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    footer img {
+      width: 100px;
+      height: 70px;
+      object-fit: contain;
+      background: white;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 12px;
+    }
+
+    footer p {
+      opacity: 0.8;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* =========================
+       MOBILE / IPAD
+    ========================== */
+
+    @media (max-width: 800px) {
+
+      header {
+        padding: 8px 15px;
+      }
+
+      .logo img {
+        width: 90px;
+        height: 60px;
+      }
+
+      nav a:not(.admin-button) {
+        display: none;
+      }
+
+      .admin-button {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title h2 {
+        font-size: 28px;
+      }
+
+      .cta {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .cta h2 {
+        font-size: 27px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- EN-TÊTE -->
+
+  <header>
+
+    <a href="index.html" class="logo">
+      <img
+        src="images/logo-kssb.jpeg"
+        alt="Logo KSSB - Wa Keur Serigne Saliou Bâtiment"
+      >
+    </a>
+
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="#services">Nos services</a>
+      <a href="demande.html">Recruter</a>
+
+      <a href="admin.html" class="admin-button">
+        🔐 Administration
+      </a>
+    </nav>
+
+  </header>
+
+
+  <!-- ACCUEIL -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="badge">
+        🇸🇳 Service de recrutement KSSB
+      </div>
+
+      <h1>
+        Trouvez le travailleur
+        qu'il vous faut.
+      </h1>
+
+      <p>
+        Vous êtes un particulier, une entreprise ou une organisation ?
+        KSSB vous accompagne dans la recherche de travailleurs
+        diplômés ou non diplômés correspondant à vos besoins.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="demande.html" class="btn-primary">
+          👥 Rechercher un travailleur
+        </a>
+
+        <a href="#services" class="btn-secondary">
+          Découvrir le service
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TYPES DE PERSONNEL -->
+
+  <section class="section" id="services">
+
+    <div class="section-title">
+
+      <span>KSSB Recrutement</span>
+
+      <h2>
+        Quel type de travailleur recherchez-vous ?
+      </h2>
+
+      <p>
+        Décrivez votre besoin et notre agence pourra identifier
+        les profils correspondant à votre demande.
+      </p>
+
+    </div>
+
+
+    <div class="cards">
+
+      <!-- NON DIPLÔMÉS -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          👷🏾
+        </div>
+
+        <h3>
+          Personnel & services
+        </h3>
+
+        <p>
+          Pour les particuliers et professionnels recherchant
+          du personnel pour les services, métiers manuels,
+          travaux ou besoins du quotidien.
+        </p>
+
+        <div class="jobs">
+          <span class="job">Femme de ménage</span>
+          <span class="job">Gardien</span>
+          <span class="job">Chauffeur</span>
+          <span class="job">Cuisinier</span>
+          <span class="job">Maçon</span>
+          <span class="job">Carreleur</span>
+          <span class="job">Plombier</span>
+          <span class="job">Électricien</span>
+          <span class="job">Peintre</span>
+          <span class="job">Menuisier</span>
+          <span class="job">Manœuvre</span>
+          <span class="job">Autres</span>
+        </div>
+
+      </div>
+
+
+      <!-- DIPLÔMÉS -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎓
+        </div>
+
+        <h3>
+          Professionnels diplômés
+        </h3>
+
+        <p>
+          Pour les entreprises, organisations et particuliers
+          recherchant des candidats disposant d'une formation,
+          d'un diplôme ou de compétences professionnelles.
+        </p>
+
+        <div class="jobs">
+          <span class="job">Secrétaire</span>
+          <span class="job">Comptable</span>
+          <span class="job">Commercial</span>
+          <span class="job">Technicien</span>
+          <span class="job">Informaticien</span>
+          <span class="job">Ingénieur</span>
+          <span class="job">Architecte</span>
+          <span class="job">Conducteur de travaux</span>
+          <span class="job">Autres</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- COMMENT ÇA MARCHE -->
+
+  <section class="how">
+
+    <div class="section">
+
+      <div class="section-title">
+
+        <span>Simple et rapide</span>
+
+        <h2>
+          Comment ça marche ?
+        </h2>
+
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+
+          <div class="step-number">
+            1
+          </div>
+
+          <h3>
+            Faites votre demande
+          </h3>
+
+          <p>
+            Indiquez vos coordonnées, votre localisation
+            et le type de travailleur que vous recherchez.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            2
+          </div>
+
+          <h3>
+            KSSB étudie votre besoin
+          </h3>
+
+          <p>
+            Notre agence consulte votre demande et recherche
+            les profils correspondant à vos critères.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            3
+          </div>
+
+          <h3>
+            Nous vous contactons
+          </h3>
+
+          <p>
+            KSSB vous contacte afin de poursuivre
+            le processus de mise en relation.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <h2>
+      Besoin d'un travailleur ?
+    </h2>
+
+    <p>
+      Déposez votre demande auprès de KSSB dès maintenant.
+    </p>
+
+    <a href="demande.html" class="btn-primary">
+      Faire une demande
+    </a>
+
+  </section>
+
+
+  <!-- PIED DE PAGE -->
+
+  <footer>
+
+    <img
+      src="images/logo-kssb.jpeg"
+      alt="Logo KSSB"
+    >
+
+    <p>
+      <strong>Wa Keur Serigne Saliou Bâtiment</strong>
+    </p>
+
+    <p>
+      Service KSSB Recrutement
+    </p>
+
+    <p>
+      © 2026 KSSB — Tous droits réservés
+    </p>
+
+  </footer>
+
+</body>
+</html>

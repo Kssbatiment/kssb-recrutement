@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102b4e">
+<title>Travailleurs | KSSB Recrutement</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --navy:#102b4e;
+  --navy-dark:#0b203a;
+  --navy-light:#1d4168;
+  --blue:#245e9b;
+  --bg:#f4f7fb;
+  --white:#fff;
+  --text:#182b43;
+  --muted:#718096;
+  --border:#e5eaf1;
+  --green:#147d52;
+  --green-bg:#e7f5ed;
+  --orange:#a96c16;
+  --orange-bg:#fff4e5;
+  --red:#b42318;
+  --red-bg:#fff4f3;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration:none;
+}
+
+.loading{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:15px;
+}
+
+.spinner{
+  width:40px;
+  height:40px;
+  border:4px solid #e4edf6;
+  border-top-color:var(--navy);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.app{
+  display:none;
+}
+
+/* MENU */
+
+.sidebar{
+  width:265px;
+  position:fixed;
+  inset:0 auto 0 0;
+  background:var(--navy);
+  color:white;
+  padding:26px 16px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 7px 26px;
+  border-bottom:1px solid #ffffff22;
+}
+
+.brand img{
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  background:white;
+  padding:4px;
+  border-radius:11px;
+}
+
+.brand strong{
+  display:block;
+  font-size:20px;
+}
+
+.brand span{
+  display:block;
+  color:#b5c9df;
+  font-size:11px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.menu{
+  padding-top:30px;
+}
+
+.menu-title{
+  color:#8eabc9;
+  padding:0 14px;
+  margin-bottom:14px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.menu a,
+.menu button{
+  width:100%;
+  display:flex;
+  align-items:center;
+  padding:14px;
+  margin-bottom:6px;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:#d4e1ef;
+  font-size:13px;
+  font-weight:700;
+  text-align:left;
+}
+
+.menu a:hover,
+.menu button:hover,
+.menu a.active{
+  background:#ffffff19;
+  color:white;
+}
+
+.menu a.active{
+  box-shadow:inset 3px 0 0 #a6c6eb;
+}
+
+.logout{
+  margin-top:24px;
+  color:#ffd6d6!important;
+}
+
+/* CONTENU */
+
+.main{
+  margin-left:265px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:84px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:0 35px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.topbar-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.topbar h1{
+  color:var(--navy);
+  font-size:20px;
+}
+
+.topbar p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:6px;
+}
+
+.admin-email{
+  color:var(--muted);
+  font-size:12px;
+  max-width:230px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.mobile-menu{
+  display:none;
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:white;
+  color:var(--navy);
+  font-size:22px;
+}
+
+.content{
+  max-width:1550px;
+  margin:auto;
+  padding:34px;
+}
+
+.heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:27px;
+}
+
+.eyebrow{
+  color:var(--blue);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.heading h2{
+  color:var(--navy);
+  font-size:28px;
+}
+
+.heading p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:9px;
+}
+
+.btn{
+  border:1px solid transparent;
+  border-radius:9px;
+  padding:12px 17px;
+  min-height:44px;
+  font-size:12px;
+  font-weight:800;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.btn-primary{
+  background:var(--navy);
+  color:white;
+}
+
+.btn-primary:hover{
+  background:var(--navy-light);
+}
+
+.btn-secondary{
+  background:white;
+  color:var(--navy);
+  border-color:var(--border);
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:wait;
+}
+
+/* STATISTIQUES */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+  margin-bottom:24px;
+}
+
+.stat{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:23px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+
+.stat-number{
+  color:var(--navy);
+  font-size:32px;
+  font-weight:900;
+  margin-top:10px;
+}
+
+/* TABLEAU */
+
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.panel-header{
+  padding:22px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.panel-header h3{
+  color:var(--navy);
+  font-size:17px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.filters input,
+.filters select{
+  height:43px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:0 12px;
+  background:white;
+  outline:none;
+}
+
+.filters input{
+  min-width:260px;
+}
+
+.filters input:focus,
+.filters select:focus{
+  border-color:var(--blue);
+}
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  min-width:1100px;
+  border-collapse:collapse;
+}
+
+th{
+  background:#f8fafc;
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  text-align:left;
+  padding:15px;
+  border-bottom:1px solid var(--border);
+}
+
+td{
+  padding:15px;
+  border-bottom:1px solid #edf1f5;
+  font-size:12px;
+  vertical-align:middle;
+}
+
+tbody tr:hover{
+  background:#fafcff;
+}
+
+.reference{
+  color:var(--blue);
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.name{
+  font-weight:800;
+  color:var(--navy);
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 10px;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.available{
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.working{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+
+.unavailable{
+  background:#edf0f4;
+  color:#697586;
+}
+
+.status-select{
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:9px;
+  background:white;
+  color:var(--text);
+  max-width:155px;
+}
+
+.status-select:disabled{
+  opacity:.75;
+  cursor:not-allowed;
+}
+
+.lock-note{
+  color:var(--orange);
+  font-size:10px;
+  margin-top:7px;
+  max-width:170px;
+  line-height:1.5;
+}
+
+.whatsapp{
+  display:inline-block;
+  padding:10px 12px;
+  border-radius:8px;
+  background:var(--green-bg);
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
+}
+
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.error{
+  padding:20px;
+  color:var(--red);
+  background:var(--red-bg);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.notice{
+  padding:14px 20px;
+  background:#edf3fa;
+  color:#355577;
+  border-bottom:1px solid #dce7f3;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.message{
+  display:none;
+  padding:14px;
+  margin:15px 20px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.message.success{
+  display:block;
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.message.error{
+  display:block;
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+/* FENETRE AJOUT */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(7,21,39,.55);
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal.open{
+  display:block;
+}
+
+.modal-card{
+  max-width:850px;
+  margin:25px auto;
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.modal-header{
+  padding:23px 25px;
+  background:var(--navy);
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.modal-header h2{
+  font-size:20px;
+}
+
+.modal-header p{
+  color:#b5c9df;
+  font-size:12px;
+  margin-top:6px;
+}
+
+.modal-header button{
+  border:0;
+  background:#ffffff20;
+  color:white;
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  font-size:22px;
+}
+
+form{
+  padding:25px;
+}
+
+.section-title{
+  color:var(--navy);
+  font-size:16px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:20px;
+}
+
+.section-title:not(:first-child){
+  margin-top:30px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  font-size:12px;
+  font-weight:800;
+}
+
+.required{
+  color:var(--red);
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid #dbe3ed;
+  border-radius:9px;
+  padding:12px;
+  background:#fbfcfe;
+  outline:none;
+}
+
+.field textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--blue);
+}
+
+.checks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  background:#f8fafc;
+  border-radius:9px;
+  font-size:12px;
+}
+
+.form-message{
+  display:none;
+  padding:14px;
+  margin-top:20px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.form-message.success{
+  display:block;
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.form-message.error{
+  display:block;
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:25px;
+}
+
+.overlay{
+  display:none;
+}
+
+.footer{
+  padding:25px;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+}
+
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .overlay.open{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(7,21,39,.48);
+    z-index:90;
+  }
+
+  .topbar{
+    padding:0 18px;
+  }
+
+  .content{
+    padding:23px 16px;
+  }
+}
+
+@media(max-width:600px){
+  .topbar h1{
+    font-size:17px;
+  }
+
+  .admin-email{
+    display:none;
+  }
+
+  .heading h2{
+    font-size:24px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:17px;
+  }
+
+  .filters{
+    width:100%;
+    flex-direction:column;
+  }
+
+  .filters input,
+  .filters select{
+    width:100%;
+    min-width:0;
+  }
+
+  .grid,
+  .checks{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  form{
+    padding:18px;
+  }
+
+  .form-actions{
+    flex-direction:column-reverse;
+  }
+
+  .form-actions button{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <strong>Chargement des travailleurs...</strong>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="app" id="app">
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+    <img src="images/logo-kssb.jpeg" alt="Logo KSSB">
+
+    <div>
+      <strong>KSSB</strong>
+      <span>RECRUTEMENT<br>Espace administrateur</span>
+    </div>
+  </div>
+
+  <div class="menu">
+
+    <div class="menu-title">Menu principal</div>
+
+    <a href="admin.html">Tableau de bord</a>
+
+    <a href="nouvelle-demande.html">
+      Nouvelle demande
+    </a>
+
+    <a href="admin.html#demandes">
+      Toutes les demandes
+    </a>
+
+    <a href="travailleurs.html" class="active">
+      Travailleurs
+    </a>
+
+    <a href="index.html">Voir le site</a>
+
+    <button type="button" id="logout" class="logout">
+      Se déconnecter
+    </button>
+
+  </div>
+
+</aside>
+
+<div class="main">
+
+<header class="topbar">
+
+  <div class="topbar-left">
+
+    <button
+      type="button"
+      id="mobileMenu"
+      class="mobile-menu"
+      aria-label="Ouvrir le menu"
+    >
+      &#9776;
+    </button>
+
+    <div>
+      <h1>KSSB Recrutement</h1>
+      <p>Gestion des travailleurs et candidats</p>
+    </div>
+
+  </div>
+
+  <div id="adminEmail" class="admin-email">
+    Administrateur
+  </div>
+
+</header>
+
+<main class="content">
+
+  <div class="heading">
+
+    <div>
+      <div class="eyebrow">Gestion du personnel</div>
+      <h2>Travailleurs / Candidats</h2>
+      <p>
+        Consultez les profils et gérez leurs disponibilités.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="openModal"
+    >
+      Ajouter un travailleur
+    </button>
+
+  </div>
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-label">Total travailleurs</div>
+      <div class="stat-number" id="total">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">Disponibles</div>
+      <div class="stat-number" id="availableCount">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">En mission / Placés</div>
+      <div class="stat-number" id="workingCount">0</div>
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="panel-header">
+
+      <div>
+        <h3>Liste des travailleurs</h3>
+        <p class="muted" id="resultCount">
+          Chargement...
+        </p>
+      </div>
+
+      <div class="filters">
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Nom, téléphone, métier, ville..."
+        >
+
+        <select id="availabilityFilter">
+          <option value="">Toutes disponibilités</option>
+          <option value="Disponible">Disponible</option>
+          <option value="En mission">En mission</option>
+          <option value="Indisponible">Indisponible</option>
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="notice">
+      Un travailleur affecté à une mission active est verrouillé
+      au statut « En mission ». Sa disponibilité ne peut pas être
+      modifiée ici tant que cette mission est active.
+    </div>
+
+    <div id="pageMessage" class="message" role="status"></div>
+
+    <div id="listContainer">
+      <div class="empty">
+        Chargement des travailleurs...
+      </div>
+    </div>
+
+  </section>
+
+  <div class="footer">
+    © 2026 Wa Keur Serigne Saliou Bâtiment — KSSB
+  </div>
+
+</main>
+</div>
+</div>
+
+<!-- FENETRE AJOUT TRAVAILLEUR -->
+
+<div class="modal" id="workerModal">
+
+  <div class="modal-card">
+
+    <div class="modal-header">
+
+      <div>
+        <h2>Ajouter un travailleur</h2>
+        <p>Nouvelle fiche KSSB Recrutement</p>
+      </div>
+
+      <button
+        type="button"
+        id="closeModal"
+        aria-label="Fermer"
+      >
+        &times;
+      </button>
+
+    </div>
+
+    <form id="workerForm" novalidate>
+
+      <h3 class="section-title">
+        Informations personnelles
+      </h3>
+
+      <div class="grid">
+
+        <div class="field">
+          <label for="prenom">
+            Prénom <span class="required">*</span>
+          </label>
+          <input id="prenom" type="text">
+        </div>
+
+        <div class="field">
+          <label for="nom">
+            Nom <span class="required">*</span>
+          </label>
+          <input id="nom" type="text">
+        </div>
+
+        <div class="field">
+          <label for="telephone">
+            Téléphone <span class="required">*</span>
+          </label>
+          <input
+            id="telephone"
+            type="tel"
+            placeholder="+221..."
+          >
+        </div>
+
+        <div class="field">
+          <label for="whatsapp">WhatsApp</label>
+          <input
+            id="whatsapp"
+            type="tel"
+            placeholder="+221..."
+          >
+        </div>
+
+        <div class="field">
+          <label for="ville">
+            Ville / Commune <span class="required">*</span>
+          </label>
+          <input id="ville" type="text">
+        </div>
+
+        <div class="field">
+          <label for="adresse">Adresse / Quartier</label>
+          <input id="adresse" type="text">
+        </div>
+
+        <div class="field">
+          <label for="genre">Genre</label>
+          <select id="genre">
+            <option value="">Non précisé</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+          </select>
+        </div>
+
+      </div>
+
+      <h3 class="section-title">
+        Profil professionnel
+      </h3>
+
+      <div class="grid">
+
+        <div class="field">
+          <label for="metier">
+            Métier <span class="required">*</span>
+          </label>
+
+          <input
+            id="metier"
+            type="text"
+            placeholder="Maçon, Chauffeur, Comptable..."
+          >
+        </div>
+
+        <div class="field">
+          <label for="profil">Profil</label>
+
+          <select id="profil">
+            <option value="Non diplômé">Non diplômé</option>
+            <option value="Diplômé">Diplômé</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="experience">Expérience</label>
+
+          <select id="experience">
+            <option value="">Non précisé</option>
+            <option value="Débutant">Débutant</option>
+            <option value="1 an">1 an</option>
+            <option value="2 ans">2 ans</option>
+            <option value="3 ans">3 ans</option>
+            <option value="5 ans ou plus">5 ans ou plus</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="niveau">Niveau d'études</label>
+
+          <select id="niveau">
+            <option value="">Non précisé</option>
+            <option value="Aucun diplôme">Aucun diplôme</option>
+            <option value="CFEE">CFEE</option>
+            <option value="BFEM">BFEM</option>
+            <option value="CAP / BEP">CAP / BEP</option>
+            <option value="Baccalauréat">Baccalauréat</option>
+            <option value="Bac +2">Bac +2</option>
+            <option value="Licence">Licence</option>
+            <option value="Master">Master</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="disponibilite">Disponibilité</label>
+
+          <select id="disponibilite">
+            <option value="Disponible">Disponible</option>
+            <option value="En mission">En mission</option>
+            <option value="Indisponible">Indisponible</option>
+          </select>
+        </div>
+
+      </div>
+
+      <h3 class="section-title">
+        Documents disponibles
+      </h3>
+
+      <div class="checks">
+
+        <label class="check">
+          <input type="checkbox" id="cv">
+          CV disponible
+        </label>
+
+        <label class="check">
+          <input type="checkbox" id="identite">
+          Pièce d'identité
+        </label>
+
+        <label class="check">
+          <input type="checkbox" id="residence">
+          Certificat de résidence
+        </label>
+
+        <label class="check">
+          <input type="checkbox" id="motivation">
+          Lettre de motivation
+        </label>
+
+      </div>
+
+      <h3 class="section-title">Note interne</h3>
+
+      <div class="field">
+        <label for="note">Observations</label>
+        <textarea
+          id="note"
+          placeholder="Observations réservées à KSSB..."
+        ></textarea>
+      </div>
+
+      <div
+        id="formMessage"
+        class="form-message"
+        role="status"
+      ></div>
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="cancelModal"
+        >
+          Annuler
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="saveWorker"
+        >
+          Enregistrer le travailleur
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+  "https://qzfddozpccnpnxfxwcfz.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_rkKNQ9_GUKCjIdwYg57p0Q_tLI1Njsk";
+
+const ADMIN_UID =
+  "6393a1a9-85f6-4ad5-ab43-5e370fb59ca1";
+
+const db = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const el = id => document.getElementById(id);
+
+let travailleurs = [];
+let missionsActives = new Set();
+let chargementEnCours = false;
+
+function value(id){
+  return el(id).value.trim();
+}
+
+function optional(id){
+  const valeur = value(id);
+  return valeur === "" ? null : valeur;
+}
+
+function escapeHTML(valeur){
+  if(valeur === null || valeur === undefined){
+    return "";
+  }
+
+  return String(valeur)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function normalizePhone(valeur){
+  if(!valeur) return "";
+
+  let numero = String(valeur)
+    .replace(/\D/g,"");
+
+  if(numero.startsWith("00")){
+    numero = numero.slice(2);
+  }
+
+  if(numero.length === 9){
+    numero = "221" + numero;
+  }
+
+  return numero;
+}
+
+function availabilityClass(statut){
+  if(statut === "Disponible"){
+    return "available";
+  }
+
+  if(statut === "En mission"){
+    return "working";
+  }
+
+  return "unavailable";
+}
+
+function afficherMessage(texte,succes){
+  const zone = el("pageMessage");
+  zone.textContent = texte;
+  zone.className =
+    "message " + (succes ? "success" : "error");
+}
+
+async function checkAdmin(){
+  const {data,error} = await db.auth.getUser();
+
+  if(
+    error ||
+    !data.user ||
+    data.user.id !== ADMIN_UID
+  ){
+    window.location.replace("login.html");
+    return false;
+  }
+
+  el("adminEmail").textContent =
+    data.user.email || "Administrateur";
+
+  return true;
+}
+
+/*
+  RECHERCHE DES MISSIONS ACTIVES
+
+  Une affectation est active si son statut
+  est exactement "En mission".
+
+  Les identifiants concernés sont conservés
+  dans un Set pour bloquer leur modification.
+*/
+
+async function chargerMissionsActives(){
+  const {data,error} = await db
+    .from("affectations_travailleurs")
+    .select("travailleur_id")
+    .eq("statut","En mission");
+
+  if(error) throw error;
+
+  missionsActives = new Set(
+    (data || []).map(
+      mission => String(mission.travailleur_id)
+    )
+  );
+}
+
+/* CHARGEMENT DES TRAVAILLEURS */
+
+async function loadWorkers(){
+  if(chargementEnCours) return;
+
+  chargementEnCours = true;
+
+  el("listContainer").innerHTML = `
+    <div class="empty">
+      Chargement des travailleurs...
+    </div>
+  `;
+
+  try{
+    const {data,error} = await db
+      .from("travailleurs")
+      .select("*")
+      .order("date_creation",{ascending:false});
+
+    if(error) throw error;
+
+    await chargerMissionsActives();
+
+    travailleurs = Array.isArray(data) ? data : [];
+
+    updateStats();
+    displayWorkers();
+
+  }catch(erreur){
+    console.error(erreur);
+
+    el("listContainer").innerHTML = `
+      <div class="error">
+        Impossible de charger les travailleurs :
+        ${escapeHTML(erreur.message)}
+      </div>
+    `;
+
+    el("resultCount").textContent =
+      "Erreur de chargement";
+
+  }finally{
+    chargementEnCours = false;
+  }
+}
+
+function statutEffectif(travailleur){
+  if(missionsActives.has(String(travailleur.id))){
+    return "En mission";
+  }
+
+  return travailleur.disponibilite ||
+    "Indisponible";
+}
+
+function updateStats(){
+  el("total").textContent =
+    travailleurs.length;
+
+  el("availableCount").textContent =
+    travailleurs.filter(
+      w => statutEffectif(w) === "Disponible"
+    ).length;
+
+  el("workingCount").textContent =
+    travailleurs.filter(
+      w => statutEffectif(w) === "En mission"
+    ).length;
+}
+
+/* AFFICHAGE DU TABLEAU */
+
+function displayWorkers(){
+  const search = el("searchInput")
+    .value.trim().toLowerCase();
+
+  const availability = el("availabilityFilter").value;
+
+  const filtered = travailleurs.filter(w => {
+    const texte = [
+      w.reference,
+      w.prenom,
+      w.nom,
+      w.telephone,
+      w.whatsapp,
+      w.ville,
+      w.metier,
+      w.profil
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    const rechercheOK =
+      !search || texte.includes(search);
+
+    const disponibiliteOK =
+      !availability ||
+      statutEffectif(w) === availability;
+
+    return rechercheOK && disponibiliteOK;
+  });
+
+  el("resultCount").textContent =
+    filtered.length + " travailleur(s) affiché(s)";
+
+  if(filtered.length === 0){
+    el("listContainer").innerHTML = `
+      <div class="empty">
+        Aucun travailleur trouvé.
+      </div>
+    `;
+    return;
+  }
+
+  const rows = filtered.map(w => {
+    const whatsapp = normalizePhone(
+      w.whatsapp || w.telephone
+    );
+
+    const missionActive =
+      missionsActives.has(String(w.id));
+
+    const statut = statutEffectif(w);
+
+    return `
+      <tr>
+
+        <td>
+          <div class="reference">
+            ${escapeHTML(w.reference)}
+          </div>
+        </td>
+
+        <td>
+          <div class="name">
+            ${escapeHTML(w.prenom)}
+            ${escapeHTML(w.nom)}
+          </div>
+
+          <div class="muted">
+            ${escapeHTML(w.profil || "")}
+          </div>
+        </td>
+
+        <td>
+          ${escapeHTML(w.telephone)}
+
+          ${
+            w.whatsapp
+              ? `<div class="muted">
+                   WhatsApp :
+                   ${escapeHTML(w.whatsapp)}
+                 </div>`
+              : ""
+          }
+        </td>
+
+        <td>
+          <strong>${escapeHTML(w.metier)}</strong>
+
+          <div class="muted">
+            ${escapeHTML(w.experience || "")}
+          </div>
+        </td>
+
+        <td>
+          ${escapeHTML(w.ville)}
+        </td>
+
+        <td>
+          <span class="badge ${availabilityClass(statut)}">
+            ${escapeHTML(statut)}
+          </span>
+        </td>
+
+        <td>
+          <select
+            class="status-select"
+            data-worker-id="${escapeHTML(w.id)}"
+            ${missionActive ? "disabled" : ""}
+          >
+
+            <option
+              value="Disponible"
+              ${statut === "Disponible" ? "selected" : ""}
+            >
+              Disponible
+            </option>
+
+            <option
+              value="En mission"
+              ${statut === "En mission" ? "selected" : ""}
+            >
+              En mission
+            </option>
+
+            <option
+              value="Indisponible"
+              ${statut === "Indisponible" ? "selected" : ""}
+            >
+              Indisponible
+            </option>
+
+          </select>
+
+          ${
+            missionActive
+              ? `<div class="lock-note">
+                   Mission active : modification bloquée.
+                 </div>`
+              : ""
+          }
+        </td>
+
+        <td>
+          ${
+            whatsapp
+              ? `<a
+                   class="whatsapp"
+                   href="https://wa.me/${whatsapp}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   WhatsApp
+                 </a>`
+              : "-"
+          }
+        </td>
+
+      </tr>
+    `;
+  }).join("");
+
+  el("listContainer").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Référence</th>
+            <th>Travailleur</th>
+            <th>Téléphone</th>
+            <th>Métier</th>
+            <th>Ville</th>
+            <th>Disponibilité</th>
+            <th>Modifier</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/*
+  PROTECTION LORS D'UNE MODIFICATION
+
+  Avant chaque changement, on interroge
+  à nouveau Supabase pour vérifier si
+  une mission active existe réellement.
+*/
+
+async function changeAvailability(id,newStatus){
+  const identifiant = String(id);
+
+  const {data:missions,error:missionError} = await db
+    .from("affectations_travailleurs")
+    .select("id")
+    .eq("travailleur_id",id)
+    .eq("statut","En mission")
+    .limit(1);
+
+  if(missionError) throw missionError;
+
+  if(missions && missions.length > 0){
+    missionsActives.add(identifiant);
+
+    throw new Error(
+      "Ce travailleur possède déjà une mission active. " +
+      "Sa disponibilité ne peut pas être modifiée."
+    );
+  }
+
+  const {error} = await db
+    .from("travailleurs")
+    .update({
+      disponibilite:newStatus,
+      derniere_modification:new Date().toISOString()
+    })
+    .eq("id",id);
+
+  if(error) throw error;
+}
+
+/* CHANGEMENT DE STATUT */
+
+el("listContainer").addEventListener(
+  "change",
+  async function(event){
+    const select = event.target.closest(
+      "[data-worker-id]"
+    );
+
+    if(!select) return;
+
+    const id = select.getAttribute("data-worker-id");
+    const nouveauStatut = select.value;
+
+    select.disabled = true;
+
+    try{
+      await changeAvailability(id,nouveauStatut);
+
+      afficherMessage(
+        "Disponibilité mise à jour avec succès.",
+        true
+      );
+
+    }catch(erreur){
+      afficherMessage(
+        erreur.message,
+        false
+      );
+
+    }finally{
+      await loadWorkers();
+    }
+  }
+);
+
+/* FENETRE D'AJOUT */
+
+const modal = el("workerModal");
+
+function openModal(){
+  el("formMessage").className = "form-message";
+  el("formMessage").textContent = "";
+
+  modal.classList.add("open");
+}
+
+function closeModal(){
+  modal.classList.remove("open");
+}
+
+el("openModal").addEventListener(
+  "click",
+  openModal
+);
+
+el("closeModal").addEventListener(
+  "click",
+  closeModal
+);
+
+el("cancelModal").addEventListener(
+  "click",
+  closeModal
+);
+
+/* ENREGISTREMENT D'UN TRAVAILLEUR */
+
+el("workerForm").addEventListener(
+  "submit",
+  async function(event){
+    event.preventDefault();
+
+    const messageZone = el("formMessage");
+    const button = el("saveWorker");
+
+    messageZone.className = "form-message";
+    messageZone.textContent = "";
+
+    const prenom = value("prenom");
+    const nom = value("nom");
+    const telephone = value("telephone");
+    const ville = value("ville");
+    const metier = value("metier");
+
+    if(
+      !prenom ||
+      !nom ||
+      !telephone ||
+      !ville ||
+      !metier
+    ){
+      messageZone.className = "form-message error";
+      messageZone.textContent =
+        "Veuillez remplir tous les champs obligatoires.";
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Enregistrement...";
+
+    const payload = {
+      prenom,
+      nom,
+      telephone,
+
+      whatsapp:optional("whatsapp"),
+      ville,
+      adresse:optional("adresse"),
+      metier,
+
+      profil:value("profil") || "Non diplômé",
+      genre:optional("genre"),
+      experience:optional("experience"),
+      niveau_etudes:optional("niveau"),
+      disponibilite:value("disponibilite") || "Disponible",
+
+      cv_disponible:el("cv").checked,
+      piece_identite:el("identite").checked,
+      certificat_residence:el("residence").checked,
+      lettre_motivation:el("motivation").checked,
+
+      note_interne:optional("note")
+    };
+
+    try{
+      const {error} = await db
+        .from("travailleurs")
+        .insert(payload);
+
+      if(error) throw error;
+
+      messageZone.className = "form-message success";
+      messageZone.textContent =
+        "Travailleur enregistré avec succès.";
+
+      el("workerForm").reset();
+
+      await loadWorkers();
+
+      setTimeout(function(){
+        closeModal();
+        messageZone.className = "form-message";
+      },900);
+
+    }catch(erreur){
+      console.error(erreur);
+
+      messageZone.className = "form-message error";
+      messageZone.textContent =
+        "Erreur : " + erreur.message;
+
+    }finally{
+      button.disabled = false;
+      button.textContent = "Enregistrer le travailleur";
+    }
+  }
+);
+
+/* RECHERCHE ET FILTRES */
+
+el("searchInput").addEventListener(
+  "input",
+  displayWorkers
+);
+
+el("availabilityFilter").addEventListener(
+  "change",
+  displayWorkers
+);
+
+/* MENU MOBILE */
+
+const sidebar = el("sidebar");
+const overlay = el("overlay");
+
+function fermerMenu(){
+  sidebar.classList.remove("open");
+  overlay.classList.remove("open");
+}
+
+el("mobileMenu").addEventListener(
+  "click",
+  function(){
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("open");
+  }
+);
+
+overlay.addEventListener("click",fermerMenu);
+
+/* DECONNEXION */
+
+el("logout").addEventListener(
+  "click",
+  async function(){
+    await db.auth.signOut();
+    window.location.replace("login.html");
+  }
+);
+
+/* INITIALISATION */
+
+async function init(){
+  try{
+    const autorise = await checkAdmin();
+
+    if(!autorise) return;
+
+    el("loading").style.display = "none";
+    el("app").style.display = "block";
+
+    await loadWorkers();
+
+  }catch(erreur){
+    console.error(erreur);
+
+    el("loading").style.display = "none";
+    el("app").style.display = "block";
+
+    afficherMessage(
+      "Erreur : " + erreur.message,
+      false
+    );
+  }
+}
+
+init();
+</script>
+
+</body>
+</html>
